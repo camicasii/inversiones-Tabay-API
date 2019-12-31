@@ -1,17 +1,23 @@
 {
   "name": "tabay-api",
   "version": "1.0.0",
+  "engines": {
+    "node":"13.5.0"
+  },
   "description": "",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "cross-env NODE_ENV=developen nodemon ./src/server.js --exec babel-node "
+    "dev": "cross-env NODE_ENV=developen nodemon ./src/server.js --exec babel-node ",
+    "start":"cross-env NODE_ENV=production node ./src/server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "apollo-server-express": "^2.9.15",
     "bluebird": "^3.7.2",
+    "body-parser": "^1.19.0",
     "cross-env": "^6.0.3",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
