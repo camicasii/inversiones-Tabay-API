@@ -2,14 +2,14 @@
   "name": "tabay-api",
   "version": "1.0.0",
   "engines": {
-    "node":"13.5.0"
+    "node": "13.5.0"
   },
   "description": "",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "cross-env NODE_ENV=developen nodemon ./src/server.js --exec babel-node ",
-    "start":"cross-env NODE_ENV=production node ./src/server.js"
+    "start": "cross-env NODE_ENV=production node ./src/server.js"
   },
   "keywords": [],
   "author": "",
@@ -37,4 +37,6 @@
     "@babel/preset-env": "^7.7.7",
     "nodemon": "^2.0.2"
   }
+  
+  
 }

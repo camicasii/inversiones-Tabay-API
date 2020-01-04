@@ -28,13 +28,16 @@ export const  resolve ={
                 return null                
             }
         },
-        singleUpload: (parent, args) => {
-            return args.file.then(file => {
-              //Contents of Upload scalar: https://github.com/jaydenseric/graphql-upload#class-graphqlupload
-              //file.stream is a node stream that contains the contents of the uploaded file
-              //node stream api: https://nodejs.org/api/stream.html
-              return file;
-            });
+        singleUpload:async  (parent, args) => {
+            const a = await args
+            console.log(args);            
+            return true
+          },
+          singleUpload2:async  (parent, args,b) => {
+            const a = await args
+
+            console.log(parent);            
+            return true
           },
     
     }

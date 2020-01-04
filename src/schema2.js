@@ -8,6 +8,7 @@ type Query {
     cuenta(id:Int):Cuenta
     uploads:[File]
 }
+
 type File {
     filename: String!
     mimetype: String!
@@ -29,7 +30,13 @@ type Cuenta{
 },
 type Mutation{
   addCuenta(input:CuentaInput!):Cuenta
-  singleUpload(file: Upload!): File!
+  singleUpload(file: Upload!): Boolean
+  singleUpload2(file: MyUpload!): Boolean
+}
+input MyUpload{
+  name:String!
+  type:String!
+  size:Int!
 }
 input CuentaInput{    
     ID_USERS: Int
