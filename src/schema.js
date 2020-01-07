@@ -30,7 +30,7 @@ type Cuenta{
 },
 type Mutation{
   addCuenta(input:CuentaInput!):Cuenta
-  singleUpload(file: Upload!): Boolean
+  singleUpload(file: Upload!): Boolean!
 }
 input CuentaInput{    
     ID_USERS: Int

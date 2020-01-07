@@ -14,8 +14,8 @@ app.set('port',process.env.PORT||4001)
 app.use(morgan('dev'))
 app.use( bodyParser.json())
 app.use('/',router)
-//app.use("*",graphqlUploadExpress())
-const server = new ApolloServer({ typeDefs, resolvers,uploads:{maxFileSize:100000} });
+app.use("/graphql",graphqlUploadExpress({maxFiles:10}))
+const server = new ApolloServer({ typeDefs, resolvers});
 
 server.applyMiddleware({app})
 

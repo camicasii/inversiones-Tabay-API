@@ -1,5 +1,6 @@
 import pool from './database/database';
-const { GraphQLUpload } = require('graphql-upload')
+import fs from "fs"
+import stream from 'stream'
 const  resolve ={    
     Query:{        
         
@@ -28,12 +29,62 @@ const  resolve ={
                 return null                
             }
         },
-        singleUpload: async (parent, args) => {            
-            const TT =  await 
-            console.log(TT);
+        singleUpload: async (parent, args) => {                       
+            /*return args.file.then(async file=>{
+                let hola = fs.createReadStream()
+                //hola.bytesRead
+                //const w = file.createReadStream()
+                //const a =fs.writeFileSync(__dirname+"/uploads/"+file.filename)                
+                
+                
+                
+                
+                console.log("paso",__dirname+"/uploads/"+file.filename)
+                return true
+                
+            })*/
+
+
+            const {filename,mimetype,encoding,createReadStream} =  await args.file
+            const stream = createReadStream()
+            const id = Math.random()*999999
+            const UPLOAD_DIR = __dirname + "/uploads"
+            const path = `${UPLOAD_DIR}/${id.toString()}-${filename}`
+            const file = { id, filename, mimetype, path }
+              // Store the file in the filesystem.
+            await new Promise((resolve, reject) => {
+            // Create a stream to which the upload will be written.
+            const writeStream = createWriteStream(path)
+            console.log("ASASAS");
             
-            return true;
+
+    // When the upload is fully written, resolve the promise.
+    writeStream.on('finish', resolve)
+
+    // If there's an error writing the file, remove the partially written file
+    // and reject the promise.
+    writeStream.on('error', error => {
+      unlink(path, () => {
+        reject(error)
+      })
+    })
+
+
+      // In node <= 13, errors are not automatically propagated between piped
+    // streams. If there is an error receiving the upload, destroy the write
+    // stream with the corresponding error.
+    stream.on('error', error => writeStream.destroy(error))
+
+    // Pipe the upload into the write stream.
+    stream.pipe(writeStream)
+  })
+          
+
+            console.log("####################3");
             
+            
+            
+            return true            
           },
     
     }
