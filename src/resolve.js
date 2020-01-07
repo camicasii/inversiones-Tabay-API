@@ -1,5 +1,6 @@
 import pool from './database/database';
-export const  resolve ={    
+const { GraphQLUpload } = require('graphql-upload')
+const  resolve ={    
     Query:{        
         
         cuentas:async()=>{
@@ -9,8 +10,7 @@ export const  resolve ={
         cuenta:async (root, { id },context)=>{
             const [row] = await pool.query('SELECT * FROM CONTABILIDAD WHERE ID =?',[id]);
             return row
-        },
-        uploads: (parent, args) => {}
+        }
     },
     Mutation:{
         addCuenta:async (_, {input},context)=>{                                  
@@ -28,13 +28,12 @@ export const  resolve ={
                 return null                
             }
         },
-        singleUpload: (parent, args) => {
-            return args.file.then(file => {
-              //Contents of Upload scalar: https://github.com/jaydenseric/graphql-upload#class-graphqlupload
-              //file.stream is a node stream that contains the contents of the uploaded file
-              //node stream api: https://nodejs.org/api/stream.html
-              return file;
-            });
+        singleUpload: async (parent, args) => {            
+            const TT =  await 
+            console.log(TT);
+            
+            return true;
+            
           },
     
     }

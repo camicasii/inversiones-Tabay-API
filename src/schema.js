@@ -1,22 +1,19 @@
 import {makeExecutableSchema } from "graphql-tools";
+import {gql} from 'apollo-server-express'
 
 
 import {resolve} from "./resolve"
 
-const typeDefs =`
-
-
-
-type Query {
-    cuentas:[Cuenta]
-    cuenta(id:Int):Cuenta
-    uploads: File
-}
-type File {
+const typeDefs =gql`
+  type File {
     filename: String!
     mimetype: String!
     encoding: String!
   }
+type Query {
+    cuentas:[Cuenta]
+    cuenta(id:Int):Cuenta    
+}
 type Cuenta{  
     ID: Int
     ID_USERS: Int
@@ -33,7 +30,7 @@ type Cuenta{
 },
 type Mutation{
   addCuenta(input:CuentaInput!):Cuenta
-  singleUpload(file: Upload!): File!
+  singleUpload(file: Upload!): Boolean
 }
 input CuentaInput{    
     ID_USERS: Int
@@ -51,9 +48,10 @@ input CuentaInput{
 }
 `;
 
-
-export default makeExecutableSchema({
+export default typeDefs;
+/*
+makeExecutableSchema({
     typeDefs:typeDefs,
     resolvers:resolve
 });
-
+*/
