@@ -1,16 +1,16 @@
 import {makeExecutableSchema } from "graphql-tools";
 import {gql} from 'apollo-server-express'
+import resolve from "./resolve"
 
-
-import {resolve} from "./resolve"
-
-const typeDefs =gql`
+const typeDefs =`
+  scalar Upload
   type File {
     filename: String!
     mimetype: String!
     encoding: String!
   }
 type Query {
+    file_:File!
     cuentas:[Cuenta]
     cuenta(id:Int):Cuenta    
 }
@@ -48,10 +48,10 @@ input CuentaInput{
 }
 `;
 
-export default typeDefs;
-/*
-makeExecutableSchema({
+//export default typeDefs;
+
+export default makeExecutableSchema({
     typeDefs:typeDefs,
     resolvers:resolve
 });
-*/
+
