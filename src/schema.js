@@ -2,21 +2,21 @@ import {makeExecutableSchema } from "graphql-tools";
 import {gql} from 'apollo-server-express'
 import resolve from "./resolve"
 
-const typeDefs =`
+const typeDefs =gql`
   scalar Upload
   type File {
     filename: String!
     mimetype: String!
     encoding: String!
   }
-type Query {
-    file_:File!
+################################ Query #################################################
+  type Query {    
     cuentas:[Cuenta]
-    cuenta(id:Int):Cuenta    
-}
-type Cuenta{  
-    ID: Int
-    ID_USERS: Int
+    cuenta(id:ID):Cuenta    
+  }
+  type Cuenta{  
+    ID: ID
+    ID_USERS: ID
     FECHA: String
     DESCIPCION: String
     DEBE: Int
@@ -27,23 +27,29 @@ type Cuenta{
     URL: String
     CONCEPTO: Int
     CUENTA: String
-},
+  },
+
+################################ Mutation #################################################
 type Mutation{
-  addCuenta(input:CuentaInput!):Cuenta
-  singleUpload(file: Upload!): Boolean!
+  addCuenta(input:CuentaInput!,file:Upload):Cuenta
+  deleteCuenta(id:ID):Boolean!
+  editCuenta(input:CuentaInput!,id:ID!,file: Upload):Boolean!
+  
+  singleUpload(file: Upload!,id:ID): Boolean!
 }
+
 input CuentaInput{    
-    ID_USERS: Int
-    FECHA: String!
-    DESCIPCION: String!
-    DEBE: Int!
-    HABER: Int!
-    TIPO_PAGO: Int!
-    BANCO: Int!
-    REF: Int!
-    URL: String!
-    CONCEPTO: Int!
-    CUENTA: String!
+    ID_USERS: ID
+    FECHA: String
+    DESCIPCION: String
+    DEBE: Int
+    HABER: Int
+    TIPO_PAGO: Int
+    BANCO: Int
+    REF: Int
+    URL: String
+    CONCEPTO: Int
+    CUENTA: String
 
 }
 `;
